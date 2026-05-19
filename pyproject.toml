@@ -1,0 +1,9 @@
+[project]
+name = "cv"
+version = "0.1.0"
+description = "Pipeline de génération de CV : YAML → HTML (Jinja2) → PDF (Chromium) + DOCX (LibreOffice)"
+requires-python = ">=3.12"
+dependencies = [
+    "PyYAML>=6.0",
+    "Jinja2>=3.1",
+]

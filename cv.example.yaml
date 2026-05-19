@@ -1,0 +1,75 @@
+# ============================================================
+# Exemple de CV — copiez ce fichier vers cv.yaml (ou un autre nom)
+# puis lancez : uv run build.py votre-cv.yaml
+# ============================================================
+
+identite:
+  prenom: Jane
+  nom: DOE
+  titre: Ingénieure logicielle
+  email: jane.doe@example.com
+  telephone: "06.00.00.00.00"
+  adresse: 75000 Paris
+  # photo: photo.jpg  # optionnel - décommenter si vous ajoutez une photo
+
+# Petite phrase d'accroche en haut du CV (optionnelle)
+accroche: >
+  Quelques années d'expérience en développement logiciel,
+  spécialisée dans les architectures distribuées et le cloud.
+
+experiences:
+  - periode: "01/24 — présent"
+    entreprise: Acme Corp
+    poste: Tech Lead
+    description: >
+      Conception et mise en œuvre d'une plateforme de traitement
+      de données temps réel à l'échelle de plusieurs millions
+      d'évènements par jour.
+    missions:
+      - Architecture microservices (Kubernetes, gRPC)
+      - Mentorat de 3 développeurs juniors
+      - Mise en place du CI/CD (GitHub Actions, ArgoCD)
+    techno: [Go, Kubernetes, PostgreSQL, Kafka, gRPC, Terraform]
+
+  - periode: "06/21 — 12/23"
+    entreprise: Globex
+    poste: Développeuse backend
+    description: >
+      Maintenance et évolution d'une API REST utilisée par
+      l'application mobile (~500k utilisateurs).
+    techno: [Python, Django, PostgreSQL, Redis, Docker, AWS]
+
+  - periode: "09/19 — 05/21"
+    entreprise: Initech
+    poste: Développeuse full-stack
+    description: >
+      Développement d'une application SaaS B2B (front React,
+      back Node.js).
+    techno: [TypeScript, React, Node.js, MongoDB, GraphQL]
+
+formations:
+  - annee: "2019"
+    titre: "Diplôme d'ingénieur"
+    ecole: "École d'ingénieurs (Ville)"
+  - annee: "2016"
+    titre: "DUT Informatique"
+    ecole: "IUT (Ville)"
+
+langues:
+  - langue: Anglais
+    niveau: Courant
+  - langue: Espagnol
+    niveau: Scolaire
+
+# Compétences techniques de synthèse (affichées en haut ou en sidebar selon le template)
+competences:
+  - categorie: Langages
+    items: [Python, Go, TypeScript, JavaScript, SQL, Bash]
+  - categorie: Frameworks / Libs
+    items: [Django, FastAPI, React, Node.js, Express]
+  - categorie: Cloud / DevOps
+    items: [AWS, Kubernetes, Docker, Terraform, "GitHub Actions"]
+  - categorie: Bases de données
+    items: [PostgreSQL, MongoDB, Redis]
+  - categorie: Méthodes
+    items: [Scrum, "Code review", TDD, "Pair programming"]

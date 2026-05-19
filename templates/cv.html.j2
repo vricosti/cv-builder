@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ identite.prenom }} {{ identite.nom }} — CV</title>
+  <style>
+    /* ===== Reset / base ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: "Helvetica Neue", Arial, sans-serif; color: #222; font-size: 10.5pt; line-height: 1.4; }
+
+    /* ===== Page A4 ===== */
+    @page { size: A4; margin: 14mm 14mm 14mm 14mm; }
+
+    .page { max-width: 210mm; margin: 0 auto; padding: 0; }
+
+    /* ===== Header ===== */
+    header {
+      border-bottom: 3px solid #1e5b8a;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    header .name {
+      font-size: 26pt;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: #1e5b8a;
+    }
+    header .name strong { font-weight: 700; }
+    header .title {
+      font-size: 13pt;
+      color: #555;
+      margin-top: 2px;
+    }
+    header .contact {
+      margin-top: 8px;
+      font-size: 9.5pt;
+      color: #444;
+    }
+    header .contact span { margin-right: 16px; white-space: nowrap; }
+    header .contact span::before {
+      content: "•";
+      color: #1e5b8a;
+      margin-right: 6px;
+      font-weight: bold;
+    }
+    header .contact span:first-child::before { content: none; }
+
+    .accroche {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      background: #f5f8fb;
+      border-left: 3px solid #1e5b8a;
+    }
+
+    /* ===== Sections ===== */
+    section { margin-bottom: 18px; }
+    section > h2 {
+      page-break-after: avoid;
+      font-size: 13pt;
+      color: #1e5b8a;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border-bottom: 1px solid #cfd8e0;
+      padding-bottom: 3px;
+      margin-bottom: 10px;
+    }
+
+    /* ===== Compétences ===== */
+    .competences { display: block; }
+    .competences .row {
+      display: flex;
+      margin-bottom: 4px;
+      font-size: 10pt;
+    }
+    .competences .cat {
+      flex: 0 0 130px;
+      font-weight: 600;
+      color: #1e5b8a;
+    }
+    .competences .items { flex: 1; }
+
+    /* ===== Expériences ===== */
+    .exp {
+      display: flex;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .exp .periode {
+      flex: 0 0 95px;
+      font-size: 9pt;
+      font-weight: 600;
+      color: #1e5b8a;
+      padding-top: 1px;
+    }
+    .exp .body { flex: 1; padding-left: 12px; border-left: 2px solid #e0e6ec; }
+    .exp .head { margin-bottom: 4px; }
+    .exp .entreprise {
+      font-weight: 700;
+      font-size: 11pt;
+      color: #222;
+    }
+    .exp .poste {
+      font-size: 10pt;
+      color: #666;
+      font-style: italic;
+      margin-left: 6px;
+    }
+    .exp .desc { margin: 3px 0; text-align: justify; }
+    .exp ul { margin: 4px 0 4px 18px; }
+    .exp li { margin-bottom: 2px; }
+    .exp .techno {
+      margin-top: 4px;
+      font-size: 9pt;
+      color: #555;
+    }
+    .exp .techno .label {
+      font-weight: 600;
+      color: #1e5b8a;
+    }
+    .exp .techno .tag {
+      display: inline-block;
+      background: #eef2f6;
+      padding: 1px 6px;
+      margin: 1px 2px;
+      border-radius: 3px;
+      font-size: 8.5pt;
+    }
+
+    /* ===== Formations ===== */
+    .formation {
+      display: flex;
+      margin-bottom: 6px;
+    }
+    .formation .annee {
+      flex: 0 0 60px;
+      font-weight: 600;
+      color: #1e5b8a;
+    }
+    .formation .body { flex: 1; }
+    .formation .titre { font-weight: 600; }
+    .formation .ecole { color: #666; font-size: 9.5pt; }
+
+    /* ===== Langues ===== */
+    .langues { display: flex; gap: 30px; }
+    .langues .lang { }
+    .langues .lang .nom { font-weight: 600; }
+    .langues .lang .niv { color: #666; font-size: 9.5pt; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="name">{{ identite.prenom }} <strong>{{ identite.nom }}</strong></div>
+    <div class="title">{{ identite.titre }}</div>
+    <div class="contact">
+      <span>{{ identite.email }}</span>
+      <span>{{ identite.telephone }}</span>
+      <span>{{ identite.adresse }}</span>
+    </div>
+  </header>
+
+  {% if accroche %}
+  <div class="accroche">{{ accroche }}</div>
+  {% endif %}
+
+  {% if competences %}
+  <section>
+    <h2>Compétences</h2>
+    <div class="competences">
+    {% for c in competences %}
+      <div class="row">
+        <div class="cat">{{ c.categorie }}</div>
+        <div class="items">{{ c["items"] | join(" · ") }}</div>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section>
+    <h2>Expérience professionnelle</h2>
+    {% for e in experiences %}
+    <div class="exp">
+      <div class="periode">{{ e.periode }}</div>
+      <div class="body">
+        <div class="head">
+          <span class="entreprise">{{ e.entreprise }}</span>
+          {% if e.poste %}<span class="poste">— {{ e.poste }}</span>{% endif %}
+        </div>
+        {% if e.description %}<div class="desc">{{ e.description }}</div>{% endif %}
+        {% if e.missions %}
+        <ul>
+          {% for m in e.missions %}<li>{{ m }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+        {% if e.techno %}
+        <div class="techno">
+          <span class="label">Techno :</span>
+          {% for t in e.techno %}<span class="tag">{{ t }}</span>{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Formation</h2>
+    {% for f in formations %}
+    <div class="formation">
+      <div class="annee">{{ f.annee }}</div>
+      <div class="body">
+        <div class="titre">{{ f.titre }}</div>
+        {% if f.ecole %}<div class="ecole">{{ f.ecole }}</div>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Langues</h2>
+    <div class="langues">
+    {% for l in langues %}
+      <div class="lang">
+        <span class="nom">{{ l.langue }}</span> —
+        <span class="niv">{{ l.niveau }}</span>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
