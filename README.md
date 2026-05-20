@@ -70,4 +70,4 @@ git submodule add git@github.com:vous/votre-cv-prive.git data
 uv run build.py data/cv.yaml
 ```
 
-C'est exactement le setup utilisé par le mainteneur : un repo privé `cv-builder-vrichomme` monté dans `data/`. Si vous clonez ce repo sans avoir accès au sous-module, `git clone` continuera quand même — `data/` sera simplement vide et vous pourrez utiliser `cv.yaml` à la racine à la place.
+C'est exactement le setup utilisé par le mainteneur : un repo privé monté dans `data/`. Si vous clonez ce repo sans avoir accès au sous-module, `git clone` continuera quand même — `data/` sera simplement vide et vous pourrez utiliser `cv.yaml` à la racine à la place.
