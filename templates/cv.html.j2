@@ -129,6 +129,7 @@
     }
 
     /* ===== Formations ===== */
+    .keep-together { page-break-inside: avoid; break-inside: avoid; }
     .formation {
       display: flex;
       margin-bottom: 6px;
@@ -207,7 +208,7 @@
     {% endfor %}
   </section>
 
-  <section>
+  <section class="keep-together">
     <h2>Formation</h2>
     {% for f in formations %}
     <div class="formation">
@@ -220,7 +221,7 @@
     {% endfor %}
   </section>
 
-  <section>
+  <section class="keep-together">
     <h2>Langues</h2>
     <div class="langues">
     {% for l in langues %}
