@@ -36,11 +36,7 @@
       margin-top: 8px;
       font-size: 10pt;
     }
-    header .contact span { margin: 0 6px; white-space: nowrap; }
-    header .contact span + span::before {
-      content: "|";
-      margin-right: 12px;
-    }
+    header .contact span { display: block; line-height: 1.5; }
 
     .accroche {
       margin-bottom: 16px;
@@ -153,6 +149,7 @@
     <div class="title">{{ identite.titre }}</div>
     <div class="contact">
       <span>{{ identite.email }}</span>
+      <span>{{ identite.telephone }}</span>
       <span>{{ identite.adresse }}</span>
     </div>
   </header>

@@ -36,14 +36,7 @@
       font-size: 9.5pt;
       color: #444;
     }
-    header .contact span { margin-right: 16px; white-space: nowrap; }
-    header .contact span::before {
-      content: "•";
-      color: #1e5b8a;
-      margin-right: 6px;
-      font-weight: bold;
-    }
-    header .contact span:first-child::before { content: none; }
+    header .contact span { display: block; line-height: 1.5; }
 
     .accroche {
       font-style: italic;
@@ -158,7 +151,7 @@
     <div class="title">{{ identite.titre }}</div>
     <div class="contact">
       <span>{{ identite.email }}</span>
-      <!-- <span>{{ identite.telephone }}</span> -->
+      <span>{{ identite.telephone }}</span>
       <span>{{ identite.adresse }}</span>
     </div>
   </header>

@@ -1,8 +1,3 @@
-# ============================================================
-# Exemple de CV — copiez ce fichier vers cv.yaml (ou un autre nom)
-# puis lancez : uv run build.py votre-cv.yaml
-# ============================================================
-
 identite:
   prenom: Jane
   nom: DOE
