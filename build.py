@@ -98,6 +98,11 @@ def main() -> int:
         default="all",
         help="format de sortie (défaut: all)",
     )
+    parser.add_argument(
+        "--template",
+        default="cv.html.j2",
+        help="nom du template Jinja dans templates/ (défaut: cv.html.j2)",
+    )
     args = parser.parse_args()
 
     yaml_path = Path(args.source)
@@ -107,10 +112,14 @@ def main() -> int:
         print(f"erreur: fichier introuvable: {yaml_path}", file=sys.stderr)
         return 1
 
+    if not (TEMPLATES / args.template).exists():
+        print(f"erreur: template introuvable: templates/{args.template}", file=sys.stderr)
+        return 1
+
     OUTPUT.mkdir(exist_ok=True)
 
-    print(f"→ rendu HTML depuis {yaml_path.name}")
-    html_path, _ = render_html(yaml_path)
+    print(f"→ rendu HTML depuis {yaml_path.name} (template: {args.template})")
+    html_path, _ = render_html(yaml_path, template_name=args.template)
     print(f"  ✓ {html_path.relative_to(ROOT)}")
 
     if args.format in ("all", "pdf"):

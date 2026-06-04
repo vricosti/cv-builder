@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ identite.prenom }} {{ identite.nom }} — CV</title>
+  <style>
+    /* Minimal: noir & blanc, sobre, lisible par les ATS */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: "Times New Roman", Times, serif;
+      color: #000;
+      font-size: 11pt;
+      line-height: 1.45;
+    }
+
+    @page { size: A4; margin: 18mm 18mm 18mm 18mm; }
+    .page { max-width: 210mm; margin: 0 auto; padding: 0; }
+
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #000;
+    }
+    header .name {
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    header .title {
+      font-size: 11pt;
+      margin-top: 4px;
+      font-style: italic;
+    }
+    header .contact {
+      margin-top: 8px;
+      font-size: 10pt;
+    }
+    header .contact span { margin: 0 6px; white-space: nowrap; }
+    header .contact span + span::before {
+      content: "|";
+      margin-right: 12px;
+    }
+
+    .accroche {
+      margin-bottom: 16px;
+      text-align: justify;
+      font-style: italic;
+    }
+
+    section { margin-bottom: 16px; }
+    section > h2 {
+      page-break-after: avoid;
+      font-size: 11pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      border-bottom: 1px solid #000;
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    .competences .row {
+      margin-bottom: 4px;
+      font-size: 10.5pt;
+    }
+    .competences .cat {
+      font-weight: 700;
+      display: inline;
+    }
+    .competences .cat::after { content: " : "; }
+    .competences .items { display: inline; }
+
+    .exp {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .exp .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .exp .head .left {
+      flex: 1;
+    }
+    .exp .entreprise {
+      font-weight: 700;
+    }
+    .exp .poste {
+      font-style: italic;
+    }
+    .exp .periode {
+      font-size: 10pt;
+      white-space: nowrap;
+      margin-left: 12px;
+    }
+    .exp .desc {
+      margin: 2px 0;
+      text-align: justify;
+    }
+    .exp ul { margin: 4px 0 4px 20px; }
+    .exp li { margin-bottom: 1px; }
+    .exp .techno {
+      margin-top: 3px;
+      font-size: 10pt;
+      font-style: italic;
+    }
+    .exp .techno .label { font-weight: 700; font-style: normal; }
+    .exp .techno .tag {
+      display: inline;
+    }
+    .exp .techno .tag + .tag::before {
+      content: ", ";
+    }
+
+    .keep-together { page-break-inside: avoid; break-inside: avoid; }
+    .formation {
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .formation .body { flex: 1; }
+    .formation .titre { font-weight: 700; display: inline; }
+    .formation .titre::after { content: " — "; font-weight: normal; }
+    .formation .ecole { display: inline; }
+    .formation .annee {
+      white-space: nowrap;
+      margin-left: 12px;
+      font-size: 10pt;
+    }
+
+    .langues {
+      font-size: 10.5pt;
+    }
+    .langues .lang {
+      display: inline;
+    }
+    .langues .lang + .lang::before {
+      content: " · ";
+    }
+    .langues .lang .nom { font-weight: 700; }
+    .langues .lang .niv::before { content: " ("; }
+    .langues .lang .niv::after { content: ")"; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="name">{{ identite.prenom }} {{ identite.nom }}</div>
+    <div class="title">{{ identite.titre }}</div>
+    <div class="contact">
+      <span>{{ identite.email }}</span>
+      <span>{{ identite.adresse }}</span>
+    </div>
+  </header>
+
+  {% if accroche %}
+  <div class="accroche">{{ accroche }}</div>
+  {% endif %}
+
+  {% if competences %}
+  <section>
+    <h2>Compétences</h2>
+    <div class="competences">
+    {% for c in competences %}
+      <div class="row">
+        <span class="cat">{{ c.categorie }}</span><span class="items">{{ c["items"] | join(", ") }}</span>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section>
+    <h2>Expérience professionnelle</h2>
+    {% for e in experiences %}
+    <div class="exp">
+      <div class="head">
+        <div class="left">
+          <span class="entreprise">{{ e.entreprise }}</span>{% if e.poste %} — <span class="poste">{{ e.poste }}</span>{% endif %}
+        </div>
+        <div class="periode">{{ e.periode }}</div>
+      </div>
+      {% if e.description %}<div class="desc">{{ e.description }}</div>{% endif %}
+      {% if e.missions %}
+      <ul>
+        {% for m in e.missions %}<li>{{ m }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% if e.techno %}
+      <div class="techno">
+        <span class="label">Techno :</span>
+        {% for t in e.techno %}<span class="tag">{{ t }}</span>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="keep-together">
+    <h2>Formation</h2>
+    {% for f in formations %}
+    <div class="formation">
+      <div class="body">
+        <span class="titre">{{ f.titre }}</span>{% if f.ecole %}<span class="ecole">{{ f.ecole }}</span>{% endif %}
+      </div>
+      <div class="annee">{{ f.annee }}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="keep-together">
+    <h2>Langues</h2>
+    <div class="langues">
+    {% for l in langues %}
+      <div class="lang">
+        <span class="nom">{{ l.langue }}</span><span class="niv">{{ l.niveau }}</span>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
