@@ -37,6 +37,20 @@
       color: #444;
     }
     header .contact span { display: block; line-height: 1.5; }
+    header .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    header .header-text { flex: 1; min-width: 0; }
+    header .photo {
+      width: 100px;
+      height: 125px;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
     .accroche {
       font-style: italic;
@@ -147,12 +161,19 @@
 <div class="page">
 
   <header>
-    <div class="name">{{ identite.prenom }} <strong>{{ identite.nom }}</strong></div>
-    <div class="title">{{ identite.titre }}</div>
-    <div class="contact">
-      <span>{{ identite.email }}</span>
-      <span>{{ identite.telephone }}</span>
-      <span>{{ identite.adresse }}</span>
+    <div class="header-flex">
+      <div class="header-text">
+        <div class="name">{{ identite.prenom }} <strong>{{ identite.nom }}</strong></div>
+        <div class="title">{{ identite.titre }}</div>
+        <div class="contact">
+          <span>{{ identite.email }}</span>
+          <span>{{ identite.telephone }}</span>
+          <span>{{ identite.adresse }}</span>
+        </div>
+      </div>
+      {% if identite.photo %}
+      <img class="photo" src="{{ identite.photo }}" alt="">
+      {% endif %}
     </div>
   </header>
 

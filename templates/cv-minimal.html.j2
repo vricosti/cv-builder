@@ -37,6 +37,14 @@
       font-size: 10pt;
     }
     header .contact span { display: block; line-height: 1.5; }
+    header .photo {
+      width: 90px;
+      height: 112px;
+      border-radius: 2px;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      display: block;
+    }
 
     .accroche {
       margin-bottom: 16px;
@@ -145,6 +153,9 @@
 <div class="page">
 
   <header>
+    {% if identite.photo %}
+    <img class="photo" src="{{ identite.photo }}" alt="">
+    {% endif %}
     <div class="name">{{ identite.prenom }} {{ identite.nom }}</div>
     <div class="title">{{ identite.titre }}</div>
     <div class="contact">
